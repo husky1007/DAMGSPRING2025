@@ -1,0 +1,9 @@
+{
+	"name": "damg7370kanika",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6ca3e92d-b083-48df-9b2a-938bd3828e27",
+		"tenantId": "a8eec281-aaa3-4dae-ac9b-9a398b9215e7"
+	}
+}
