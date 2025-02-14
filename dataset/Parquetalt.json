@@ -1,0 +1,97 @@
+{
+	"name": "Parquetalt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "kanikawfparquet.parquet",
+				"fileSystem": "silver"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "ARREST_KEY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PD_CD",
+				"type": "INT32"
+			},
+			{
+				"name": "PD_DESC",
+				"type": "UTF8"
+			},
+			{
+				"name": "KY_CD",
+				"type": "INT32"
+			},
+			{
+				"name": "OFNS_DESC",
+				"type": "UTF8"
+			},
+			{
+				"name": "LAW_CODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "LAW_CAT_CD",
+				"type": "UTF8"
+			},
+			{
+				"name": "ARREST_BORO",
+				"type": "UTF8"
+			},
+			{
+				"name": "ARREST_PRECINCT",
+				"type": "INT32"
+			},
+			{
+				"name": "JURISDICTION_CODE",
+				"type": "INT32"
+			},
+			{
+				"name": "AGE_GROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERP_SEX",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERP_RACE",
+				"type": "UTF8"
+			},
+			{
+				"name": "X_COORD_CD",
+				"type": "INT64"
+			},
+			{
+				"name": "Y_COORD_CD",
+				"type": "INT64"
+			},
+			{
+				"name": "Latitude",
+				"type": "FLOAT"
+			},
+			{
+				"name": "Longitude",
+				"type": "FLOAT"
+			},
+			{
+				"name": "New Georeferenced Column",
+				"type": "UTF8"
+			},
+			{
+				"name": "ARREST_DATE_Formatted",
+				"type": "DATE"
+			}
+		]
+	}
+}
