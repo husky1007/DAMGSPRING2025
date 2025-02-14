@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "kanikawfparquet.parquet",
+				"fileName": "kanikanewparuqet.parquet",
 				"fileSystem": "silver"
 			},
 			"compressionCodec": "snappy"
