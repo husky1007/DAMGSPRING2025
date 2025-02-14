@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "damg7370kanika"
+		},
+		"AzureDataLakeStorage_LS_accountKey": {
+			"value": ""
+		},
+		"Snowflake1_password": {
+			"value": ""
+		},
+		"AzureDataLakeStorage_LS_properties_typeProperties_url": {
+			"value": "https://damg7370springprojects.dfs.core.windows.net/"
+		},
+		"AzureKeyVault_LS_properties_typeProperties_baseUrl": {
+			"value": "https://damg7370springkey2025.vault.azure.net/"
+		},
+		"LS_AzureBlobStorage_sasUri": {
+			"value": ""
+		},
+		"Snowflake1_properties_typeProperties_database": {
+			"value": "NYCRIMEANALYSIS_DB"
+		},
+		"Snowflake1_properties_typeProperties_role": {
+			"value": "NYCRIMEANALYSIS_ROLE"
+		}
+	}
+}
