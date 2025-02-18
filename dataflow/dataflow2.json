@@ -6,20 +6,10 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "stagetablev2_Pet_License",
+						"referenceName": "V2_PET_LICENSE",
 						"type": "DatasetReference"
 					},
 					"name": "sourceStg"
-				},
-				{
-					"dataset": {
-						"referenceName": "EDW_Breed_DIM",
-						"type": "DatasetReference"
-					},
-					"name": "BreedDimMaxID"
-				},
-				{
-					"name": "source3"
 				}
 			],
 			"sinks": [],
@@ -40,13 +30,7 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table') ~> sourceStg",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     query: 'SELECT NVL(MAX(BREED_SK),0) AS MaxBreedSK FROM EDW.BREED_DIM;\\n',",
-				"     format: 'query') ~> BreedDimMaxID",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source3"
+				"     format: 'table') ~> sourceStg"
 			]
 		}
 	}
