@@ -34,6 +34,9 @@
 				},
 				{
 					"name": "aggregateBreedKeys"
+				},
+				{
+					"name": "joinToTarget"
 				}
 			],
 			"scriptLines": [
@@ -91,7 +94,14 @@
 				"join1 aggregate(groupBy(SPECIES,",
 				"          PRIMARY_BREED,",
 				"          SECONDARY_BREED,",
-				"          BREED_SK)) ~> aggregateBreedKeys"
+				"          BREED_SK)) ~> aggregateBreedKeys",
+				"aggregateBreedKeys, sourceBreedDim join(PRIMARY_BREED == PRIMARY_BREED_NAME",
+				"     && SECONDARY_BREED == SECONDARY_BREED_NAME",
+				"     && SPECIES == SPECIES_NAME,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinToTarget"
 			]
 		}
 	}
