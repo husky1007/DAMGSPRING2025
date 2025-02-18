@@ -55,7 +55,6 @@
 				"          Job_Exec_ID = $Job_Param_Id,",
 				"          Load_Dt = currentDate()) ~> derivedColumn1",
 				"derivedColumn1 select(mapColumn(",
-				"          License_Issue_Date,",
 				"          License_Number,",
 				"          Animals_Name,",
 				"          Species,",
