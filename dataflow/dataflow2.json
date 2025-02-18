@@ -1,0 +1,53 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "stagetablev2_Pet_License",
+						"type": "DatasetReference"
+					},
+					"name": "sourceStg"
+				},
+				{
+					"dataset": {
+						"referenceName": "EDW_Breed_DIM",
+						"type": "DatasetReference"
+					},
+					"name": "BreedDimMaxID"
+				},
+				{
+					"name": "source3"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          LICENSE_ISSUE_DATE as string,",
+				"          LICENSE_NUMBER as string,",
+				"          ANIMAL_NAME as string,",
+				"          SPECIES as string,",
+				"          PRIMARY_BREED as string,",
+				"          SECONDARY_BREED as string,",
+				"          ZIP_CODE as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as string,",
+				"          JOB_ID as string,",
+				"          LOAD_DT as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceStg",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     query: 'SELECT NVL(MAX(BREED_SK),0) AS MaxBreedSK FROM EDW.BREED_DIM;\\n',",
+				"     format: 'query') ~> BreedDimMaxID",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source3"
+			]
+		}
+	}
+}
