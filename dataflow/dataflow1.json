@@ -55,7 +55,6 @@
 				"          Job_ID = $Job_ID,",
 				"          Load_Dt = currentDate()) ~> derivedColumn1",
 				"derivedColumn1 select(mapColumn(",
-				"          License_Issue_Date,",
 				"          License_Number,",
 				"          Animals_Name,",
 				"          Species,",
@@ -63,7 +62,7 @@
 				"          Secondary_Breed,",
 				"          ZIP_Code,",
 				"          LIC_ISSUE_DATE,",
-				"          Job_Exec_ID,",
+				"          Job_ID,",
 				"          Load_Dt",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
@@ -98,7 +97,7 @@
 				"          PRIMARY_BREED = Primary_Breed,",
 				"          SECONDARY_BREED = Secondary_Breed,",
 				"          ZIP_CODE = ZIP_Code,",
-				"          JOB_ID = Job_Exec_ID,",
+				"          DI_JOB_ID = Job_ID,",
 				"          DI_LOAD_DT = Load_Dt",
 				"     )) ~> sink1"
 			]
