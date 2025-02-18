@@ -91,7 +91,7 @@
 				"     format: 'table',",
 				"     stageInsert: true,",
 				"     mapColumn(",
-				"          LICENSE_ISSUE_DATE = License_Issue_Date,",
+				"          LICENSE_ISSUE_DATE = LIC_ISSUE_DATE,",
 				"          LICENSE_NUMBER = License_Number,",
 				"          ANIMAL_NAME = Animals_Name,",
 				"          SPECIES = Species,",
