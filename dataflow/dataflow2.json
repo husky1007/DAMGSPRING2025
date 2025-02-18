@@ -20,7 +20,12 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "join1",
+					"description": "Custom (cross) join on 'sourceStg' and 'BreedDimMaxID'"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          LICENSE_ISSUE_DATE as string,",
@@ -52,7 +57,12 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table') ~> BreedDimMaxID"
+				"     format: 'table') ~> BreedDimMaxID",
+				"sourceStg, BreedDimMaxID join(1== 1,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1"
 			]
 		}
 	}
