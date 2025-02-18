@@ -10,6 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "sourceStg"
+				},
+				{
+					"dataset": {
+						"referenceName": "EDW_Breed_DIM",
+						"type": "DatasetReference"
+					},
+					"name": "BreedDimMaxID"
 				}
 			],
 			"sinks": [],
@@ -30,7 +37,22 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table') ~> sourceStg"
+				"     format: 'table') ~> sourceStg",
+				"source(output(",
+				"          BREED_SK as string,",
+				"          START_DT as string,",
+				"          END_DT as string,",
+				"          IS_CURRENT as string,",
+				"          BREED_DK as string,",
+				"          SPECIES_NAME as string,",
+				"          PRIMARY_BREED_NAME as string,",
+				"          SECONDARY_BREED_NAME as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> BreedDimMaxID"
 			]
 		}
 	}
