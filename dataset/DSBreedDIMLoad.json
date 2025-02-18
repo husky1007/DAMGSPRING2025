@@ -5,19 +5,6 @@
 			"referenceName": "AzureDataLakeStorage_LS",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"FileName": {
-				"type": "string",
-				"defaultValue": "test.txt"
-			},
-			"FileDelimiter": {
-				"type": "string"
-			},
-			"Directory": {
-				"type": "string",
-				"defaultValue": "na"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
