@@ -98,7 +98,7 @@
 				"          PRIMARY_BREED = Primary_Breed,",
 				"          SECONDARY_BREED = Secondary_Breed,",
 				"          ZIP_CODE = ZIP_Code,",
-				"          DI_JOB_ID = Job_Exec_ID,",
+				"          JOB_ID = Job_Exec_ID,",
 				"          DI_LOAD_DT = Load_Dt",
 				"     )) ~> sink1"
 			]
