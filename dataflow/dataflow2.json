@@ -37,6 +37,9 @@
 				},
 				{
 					"name": "joinToTarget"
+				},
+				{
+					"name": "filterExistingRows"
 				}
 			],
 			"scriptLines": [
@@ -101,7 +104,9 @@
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> joinToTarget"
+				"     broadcast: 'auto')~> joinToTarget",
+				"joinToTarget filter(isNull(SPECIES_NAME) && isNull(PRIMARY_BREED_NAME) && isNull(SECONDARY_BREED_NAME)\r",
+				") ~> filterExistingRows"
 			]
 		}
 	}
