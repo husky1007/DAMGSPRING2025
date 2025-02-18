@@ -17,6 +17,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "BreedDimMaxID"
+				},
+				{
+					"dataset": {
+						"referenceName": "EDW_Breed_DIM",
+						"type": "DatasetReference"
+					},
+					"name": "sourceBreedDim"
 				}
 			],
 			"sinks": [],
@@ -24,6 +31,9 @@
 				{
 					"name": "join1",
 					"description": "Custom (cross) join on 'sourceStg' and 'BreedDimMaxID'"
+				},
+				{
+					"name": "aggregateBreedKeys"
 				}
 			],
 			"scriptLines": [
@@ -58,11 +68,30 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table') ~> BreedDimMaxID",
+				"source(output(",
+				"          BREED_SK as string,",
+				"          START_DT as string,",
+				"          END_DT as string,",
+				"          IS_CURRENT as string,",
+				"          BREED_DK as string,",
+				"          SPECIES_NAME as string,",
+				"          PRIMARY_BREED_NAME as string,",
+				"          SECONDARY_BREED_NAME as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceBreedDim",
 				"sourceStg, BreedDimMaxID join(1== 1,",
 				"     joinType:'cross',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1"
+				"     broadcast: 'auto')~> join1",
+				"join1 aggregate(groupBy(SPECIES,",
+				"          PRIMARY_BREED,",
+				"          SECONDARY_BREED,",
+				"          BREED_SK)) ~> aggregateBreedKeys"
 			]
 		}
 	}
