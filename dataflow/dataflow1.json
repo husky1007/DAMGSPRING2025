@@ -22,6 +22,9 @@
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     Job_ID as string (\"10\")",
+				"}",
 				"source(output(",
 				"          License_Issue_Date as string,",
 				"          License_Number as string,",
@@ -40,8 +43,7 @@
 				"          Species = upper(Species),",
 				"          License_Number = toInteger(translate(License_Number,'S','')),",
 				"          Animals_Name = translate(Animals_Name, '0', '')\r",
-				",",
-				"          column1 = ERROR_FUNCTION('')) ~> derivedColumn1",
+				") ~> derivedColumn1",
 				"derivedColumn1 select(mapColumn(",
 				"          License_Number,",
 				"          Animals_Name,",
