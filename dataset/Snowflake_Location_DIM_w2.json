@@ -1,0 +1,16 @@
+{
+	"name": "Snowflake_Location_DIM_w2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "NEW_SCHEMA",
+			"table": "LOCATION_DIM"
+		}
+	}
+}

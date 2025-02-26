@@ -14,6 +14,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "Snowflake_Location_DIM_w2",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
@@ -44,8 +48,14 @@
 				"          DI_JOB_ID = uuid()) ~> derivedColumn1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
+				"     stageInsert: true,",
 				"     mapColumn(",
 				"          LOCATION_SK = SK_ID,",
 				"          ZIP_CODE = zipcode,",
@@ -53,8 +63,7 @@
 				"          STATE = state,",
 				"          DI_JOB_ID,",
 				"          DI_LOAD_DT",
-				"     ),",
-				"     format: 'table') ~> sink1"
+				"     )) ~> sink1"
 			]
 		}
 	}
