@@ -1,0 +1,81 @@
+{
+	"name": "DF_Clean_Data_From_TSV",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "readTSVfile",
+					"description": "Import data from ds_DelimitedText"
+				}
+			],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     JOB_ID_Param as string (\"10\")",
+				"}",
+				"source(output(",
+				"          License_Issue_Date as string,",
+				"          License_Number as string,",
+				"          Animals_Name as string,",
+				"          Species as string,",
+				"          Primary_Breed as string,",
+				"          Secondary_Breed as string,",
+				"          ZIP_Code as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> readTSVfile",
+				"readTSVfile derive(LIC_ISSUE_DATE = toDate(License_Issue_Date, 'MMMM dd yyyy'),",
+				"          Secondary_Breed = iifNull(Secondary_Breed, 'Unknown'),",
+				"          ZIP_Code = lpad(toString(ZIP_Code),5,'0'),",
+				"          Species = upper(Species),",
+				"          LIC_Number = toInteger(translate(License_Number,'S','')),",
+				"          Animal_NAME = translate(Animals_Name,'()',''),",
+				"          Load_Date = currentDate(),",
+				"          Job_ID = $JOB_ID_Param) ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          Species,",
+				"          Primary_Breed,",
+				"          Secondary_Breed,",
+				"          ZIP_Code,",
+				"          LIC_ISSUE_DATE,",
+				"          LIC_Number,",
+				"          Animal_NAME,",
+				"          Load_Date,",
+				"          Job_ID",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     truncate: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          Species,",
+				"          Primary_Breed,",
+				"          Secondary_Breed,",
+				"          ZIP_Code,",
+				"          LIC_ISSUE_DATE,",
+				"          LIC_Number,",
+				"          Animal_NAME,",
+				"          Load_Date,",
+				"          Job_ID",
+				"     ),",
+				"     format: 'table') ~> sink1"
+			]
+		}
+	}
+}
