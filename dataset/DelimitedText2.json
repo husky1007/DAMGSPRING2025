@@ -10,10 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Seattle_Pet_Licenses_20250206.csv",
+				"fileName": "geo-data.csv",
 				"fileSystem": "bronze"
 			},
-			"columnDelimiter": "\t",
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
