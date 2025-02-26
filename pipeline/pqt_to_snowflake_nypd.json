@@ -243,7 +243,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SnowflakeNYPDFINAL",
+						"referenceName": "Snowflake_table_nypdcrimeanalysisdb",
 						"type": "DatasetReference"
 					}
 				]
