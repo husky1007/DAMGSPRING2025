@@ -243,12 +243,18 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Snowflake_table_nypdcrimeanalysisdb",
+						"referenceName": "SnowflakeTable_Parquet_to_snow_nypd",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
+		"variables": {
+			"File": {
+				"type": "String",
+				"defaultValue": "kanikanewparuqet.parquet"
+			}
+		},
 		"annotations": []
 	}
 }

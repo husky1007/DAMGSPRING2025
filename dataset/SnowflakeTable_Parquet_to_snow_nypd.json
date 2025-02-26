@@ -1,0 +1,16 @@
+{
+	"name": "SnowflakeTable_Parquet_to_snow_nypd",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Snowflake_NYPD",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "NEW_SCHEMA_NAME",
+			"table": "FACT_ARRESTS"
+		}
+	}
+}
