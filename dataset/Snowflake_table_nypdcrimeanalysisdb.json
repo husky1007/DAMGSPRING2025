@@ -102,8 +102,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "NYCRIMEANALYSIS_DB_SCHEMA",
-			"table": "FACT_ARRESTS_NEW"
+			"schema": "NYPD_SCHEMA_ARREST",
+			"table": "FACT_ARRESTS"
 		}
 	}
 }
