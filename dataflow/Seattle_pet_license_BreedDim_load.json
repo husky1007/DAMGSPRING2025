@@ -109,7 +109,7 @@
 				"          PRIMARY_BREED,",
 				"          SECONDARY_BREED,",
 				"          MAXBREEDSK),",
-				"     COUNT_ROW = count(LIC_Number)) ~> aggregateBreedKeys",
+				"     COUNT_ROW = count(LICENSE_NUMBER)) ~> aggregateBreedKeys",
 				"aggregateBreedKeys, sourceBreedDim join(PRIMARY_BREED == ERROR_FUNCTION('')",
 				"     && SECONDARY_BREED == ERROR_FUNCTION('')",
 				"     && SPECIES == ERROR_FUNCTION(''),",
