@@ -5,6 +5,10 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "DelimitedTextseattlepetlicensenew",
+						"type": "DatasetReference"
+					},
 					"name": "readTSVfile",
 					"description": "Import data from ds_DelimitedText"
 				}
@@ -27,16 +31,11 @@
 				"     JOB_ID_Param as string (\"10\")",
 				"}",
 				"source(output(",
-				"          License_Issue_Date as string,",
-				"          License_Number as string,",
-				"          Animals_Name as string,",
-				"          Species as string,",
-				"          Primary_Breed as string,",
-				"          Secondary_Breed as string,",
-				"          ZIP_Code as integer",
+				"          {License_Issue_Date     License_Number     Animals_Name     Species     Primary_Breed     Secondary_Breed     ZIP_Code} as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> readTSVfile",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> readTSVfile",
 				"readTSVfile derive(LIC_ISSUE_DATE = toDate(License_Issue_Date, 'MMMM dd yyyy'),",
 				"          Secondary_Breed = iifNull(Secondary_Breed, 'Unknown'),",
 				"          ZIP_Code = lpad(toString(ZIP_Code),5,'0'),",
