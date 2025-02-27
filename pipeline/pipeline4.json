@@ -137,12 +137,20 @@
 								}
 							},
 							{
+								"source": {
+									"name": "DI_JOB_ID",
+									"type": "String"
+								},
 								"sink": {
 									"name": "DI_JOB_ID",
 									"type": "String"
 								}
 							},
 							{
+								"source": {
+									"name": "DI_LOAD_DT",
+									"type": "String"
+								},
 								"sink": {
 									"name": "DI_LOAD_DT",
 									"type": "DateTime"
@@ -160,7 +168,11 @@
 				"outputs": [
 					{
 						"referenceName": "Parquet2snowflake",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "TEMP_SCHEMA",
+							"table_name": "PET_LICENSE_STAGE"
+						}
 					}
 				]
 			},
