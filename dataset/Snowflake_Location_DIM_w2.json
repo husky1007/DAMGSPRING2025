@@ -9,7 +9,7 @@
 		"type": "SnowflakeV2Table",
 		"schema": [],
 		"typeProperties": {
-			"schema": "NEW_SCHEMA",
+			"schema": "TEMP_SCHEMA",
 			"table": "LOCATION_DIM"
 		}
 	}
