@@ -5,18 +5,38 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_SeattlePetTable",
+						"type": "DatasetReference"
+					},
 					"name": "source1"
 				},
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_LocationDIM",
+						"type": "DatasetReference"
+					},
 					"name": "sourceLocDim"
 				},
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_BreedDIM",
+						"type": "DatasetReference"
+					},
 					"name": "sourceBreedDim"
 				},
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_DateDIM",
+						"type": "DatasetReference"
+					},
 					"name": "sourceDateDim"
 				},
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_PETLICFCT",
+						"type": "DatasetReference"
+					},
 					"name": "FactMaxID"
 				}
 			],
@@ -51,18 +71,19 @@
 			],
 			"scriptLines": [
 				"source(output(",
-				"          Species as string,",
-				"          Primary_Breed as string,",
-				"          Secondary_Breed as string,",
-				"          ZIP_Code as string,",
-				"          LIC_ISSUE_DATE as date,",
-				"          LIC_Number as decimal(38,0),",
-				"          Animal_NAME as string,",
-				"          Load_Date as date,",
-				"          Job_ID as string",
+				"          LICENSE_ISSUE_DATE as date,",
+				"          LICENSE_NUMBER as string,",
+				"          ANIMAL_NAME as string,",
+				"          SPECIES as string,",
+				"          PRIMARY_BREED as string,",
+				"          SECONDARY_BREED as string,",
+				"          ZIP_CODE as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1",
+				"     validateSchema: false,",
+				"     format: 'table') ~> source1",
 				"source(output(",
 				"          LOCATION_SK as decimal(10,0),",
 				"          ZIP_CODE as string,",
@@ -72,7 +93,8 @@
 				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> sourceLocDim",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceLocDim",
 				"source(output(",
 				"          BREED_SK as decimal(10,0),",
 				"          PRIMARY_BREED_NAME as string,",
@@ -82,7 +104,8 @@
 				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> sourceBreedDim",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceBreedDim",
 				"source(output(",
 				"          DT as date,",
 				"          ABRV_DAY_NAME as string,",
@@ -98,13 +121,16 @@
 				"          DATE_DIM_SK as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> sourceDateDim",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceDateDim",
 				"source(output(",
 				"          MAX_LIC as decimal(10,0)",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> FactMaxID",
-				"source1, sourceLocDim join(source1@ZIP_Code == sourceLocDim@ZIP_CODE,",
+				"     validateSchema: false,",
+				"     query: 'SELECT NVL(MAX(PET_LIC_SK),0) AS MAX_LIC FROM TEMP_SCHEMA.PET_LIC_FCT',",
+				"     format: 'query') ~> FactMaxID",
+				"source1, sourceLocDim join(source1@ZIP_CODE == sourceLocDim@ZIP_CODE,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
