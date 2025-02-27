@@ -140,12 +140,12 @@
 				"     upsertable:false,",
 				"     format: 'table',",
 				"     mapColumn(",
-				"          BREED_SK,",
 				"          PRIMARY_BREED_NAME,",
 				"          SECONDARY_BREED_NAME,",
 				"          SPECIES_NAME,",
 				"          DI_JOB_ID,",
-				"          DI_LOAD_DT",
+				"          DI_LOAD_DT,",
+				"          BREED_SK",
 				"     )) ~> sinkBreedDim"
 			]
 		}
