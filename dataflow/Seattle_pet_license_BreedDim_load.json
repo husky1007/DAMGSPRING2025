@@ -5,20 +5,36 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_SeattlePetTable",
+						"type": "DatasetReference"
+					},
 					"name": "sourceStg",
 					"description": "Import data from Stage table SEATTLE_PET_TABLE"
 				},
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_BreedDIM",
+						"type": "DatasetReference"
+					},
 					"name": "BreedDimMaxId",
 					"description": "Import Data from Breed Dim"
 				},
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_BreedDIM",
+						"type": "DatasetReference"
+					},
 					"name": "sourceBreedDim",
 					"description": "Import Data from BREED_DIM"
 				}
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTable_BreedDIM",
+						"type": "DatasetReference"
+					},
 					"name": "sinkBreedDim",
 					"description": "Export Data to BREED_DIM"
 				}
@@ -53,23 +69,26 @@
 				"     DI_JOB_ID as string (\"59\")",
 				"}",
 				"source(output(",
-				"          Species as string,",
-				"          Primary_Breed as string,",
-				"          Secondary_Breed as string,",
-				"          ZIP_Code as string,",
-				"          LIC_ISSUE_DATE as date,",
-				"          LIC_Number as decimal(38,0),",
-				"          Animal_NAME as string,",
-				"          Load_Date as date,",
-				"          Job_ID as string",
+				"          LICENSE_ISSUE_DATE as date,",
+				"          LICENSE_NUMBER as string,",
+				"          ANIMAL_NAME as string,",
+				"          SPECIES as string,",
+				"          PRIMARY_BREED as string,",
+				"          SECONDARY_BREED as string,",
+				"          ZIP_CODE as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> sourceStg",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceStg",
 				"source(output(",
 				"          MAXBREEDSK as decimal(10,0)",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> BreedDimMaxId",
+				"     validateSchema: false,",
+				"     query: 'SELECT NVL(MAX(BREED_SK),0) as MaxBreedSK FROM TEMP_SCHEMA.BREED_DIM',",
+				"     format: 'query') ~> BreedDimMaxId",
 				"source(output(",
 				"          BREED_SK as decimal(10,0),",
 				"          PRIMARY_BREED_NAME as string,",
@@ -79,20 +98,21 @@
 				"          DI_LOAD_DT as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> sourceBreedDim",
+				"     validateSchema: false,",
+				"     format: 'table') ~> sourceBreedDim",
 				"sourceStg, BreedDimMaxId join(1==1,",
 				"     joinType:'cross',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> SourceDataWithSK",
-				"SourceDataWithSK aggregate(groupBy(SPECIES = Species,",
-				"          PRIMARY_BREED = Primary_Breed,",
-				"          SECONDARY_BREED = Secondary_Breed,",
+				"SourceDataWithSK aggregate(groupBy(SPECIES = ERROR_FUNCTION(''),",
+				"          PRIMARY_BREED = ERROR_FUNCTION(''),",
+				"          SECONDARY_BREED = ERROR_FUNCTION(''),",
 				"          MAXBREEDSK),",
 				"     COUNT_ROW = count(LIC_Number)) ~> aggregateBreedKeys",
-				"aggregateBreedKeys, sourceBreedDim join(PRIMARY_BREED == PRIMARY_BREED_NAME",
-				"     && SECONDARY_BREED == SECONDARY_BREED_NAME",
-				"     && SPECIES == SPECIES_NAME,",
+				"aggregateBreedKeys, sourceBreedDim join(PRIMARY_BREED == ERROR_FUNCTION('')",
+				"     && SECONDARY_BREED == ERROR_FUNCTION('')",
+				"     && SPECIES == ERROR_FUNCTION(''),",
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
@@ -106,6 +126,19 @@
 				"          DI_JOB_ID = $DI_JOB_ID) ~> DerivedColumns",
 				"DerivedColumns sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     input(",
+				"          BREED_SK as string,",
+				"          PRIMARY_BREED_NAME as string,",
+				"          SECONDARY_BREED_NAME as string,",
+				"          SPECIES_NAME as string,",
+				"          DI_JOB_ID as string,",
+				"          DI_LOAD_DT as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     mapColumn(",
 				"          BREED_SK,",
 				"          PRIMARY_BREED_NAME = PRIMARY_BREED,",
@@ -113,8 +146,7 @@
 				"          SPECIES_NAME = SPECIES,",
 				"          DI_JOB_ID,",
 				"          DI_LOAD_DT",
-				"     ),",
-				"     format: 'table') ~> sinkBreedDim"
+				"     )) ~> sinkBreedDim"
 			]
 		}
 	}
