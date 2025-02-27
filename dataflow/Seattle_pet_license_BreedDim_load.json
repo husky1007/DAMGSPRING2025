@@ -122,7 +122,7 @@
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> surrogateKey",
 				"surrogateKey derive(BREED_SK = MAXBREEDSK + RowNum,",
-				"          DI_LOAD_DT = currentTimestamp(),",
+				"          DI_LOAD_DT = currentDate(),",
 				"          DI_JOB_ID = $DI_JOB_ID) ~> DerivedColumns",
 				"DerivedColumns sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
