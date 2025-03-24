@@ -14,6 +14,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "SnowflakeTablecustomerdim",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
@@ -42,6 +46,19 @@
 				"          PID = \"0\") ~> derivedColumn1",
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     input(",
+				"          CUSTOMER_SK as decimal(38,0),",
+				"          CUSTOMER_ID as decimal(38,0),",
+				"          CUSTOMER_NAME as string,",
+				"          BILLTO as string,",
+				"          DI_CREATED_DT as timestamp,",
+				"          PID as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     mapColumn(",
 				"          CUSTOMER_SK = customer_sk,",
 				"          CUSTOMER_ID = customerid,",
@@ -49,8 +66,7 @@
 				"          BILLTO = billTo,",
 				"          DI_CREATED_DT,",
 				"          PID",
-				"     ),",
-				"     format: 'table') ~> sink1"
+				"     )) ~> sink1"
 			]
 		}
 	}
